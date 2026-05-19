@@ -40,13 +40,17 @@
     const IconEye = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>;
     const IconEyeOff = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>;
     const IconSettings = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
-    const IconSave = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>;
-    const IconFolder = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>;
+    const IconSave = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>;
+    const IconFolder = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>;
+    const IconEdit = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>;
 
     function App() {
+      // 메뉴 화면 상태 (에디터 vs 보관함)
+      const [currentView, setCurrentView] = useState('editor'); // 'editor' | 'archive'
+      
       const [isStudentMode, setIsStudentMode] = useState(false);
       
-      const [puzzleTitle, setPuzzleTitle] = useState('십자말풀이 퍼즐'); // 주제 입력 상태 추가
+      const [puzzleTitle, setPuzzleTitle] = useState('십자말풀이 퍼즐');
       const [boardCols, setBoardCols] = useState(12);
       const [boardRows, setBoardRows] = useState(12);
       const [placedWords, setPlacedWords] = useState([]);
@@ -64,25 +68,21 @@
       const [studentInputs, setStudentInputs] = useState({});
       const [studentChecked, setStudentChecked] = useState(false);
 
-      // 로컬 저장소 퍼즐 목록 상태 추가
       const [savedPuzzles, setSavedPuzzles] = useState([]);
 
-      // 초기 로드 시: URL 파싱(학생/공유 모드) & 로컬 저장소 불러오기
       useEffect(() => {
-        // 로컬 저장소 읽기
         const localData = localStorage.getItem('crosswordSavedPuzzles');
         if (localData) {
           try { setSavedPuzzles(JSON.parse(localData)); } catch(e) {}
         }
 
-        // URL 파싱
         const urlParams = new URLSearchParams(window.location.search);
         const d = urlParams.get('d'); 
         if (d) {
           try {
             const decompressed = LZString.decompressFromEncodedURIComponent(d);
             const parsed = JSON.parse(decompressed);
-            setPuzzleTitle(parsed.ti || '십자말풀이 퍼즐'); // 제목 복원
+            setPuzzleTitle(parsed.ti || '십자말풀이 퍼즐');
             setBoardCols(parsed.c);
             setBoardRows(parsed.r);
             setEmptyColor(parsed.col || '#000000');
@@ -164,7 +164,7 @@
       const generateShareLink = () => {
         if(placedWords.length === 0) return alert("배치된 단어가 없습니다.");
         const minifiedData = {
-          ti: puzzleTitle, // 제목 포함
+          ti: puzzleTitle,
           c: boardCols, r: boardRows, col: emptyColor, t: templateStyle,
           w: placedWords.map(p => ({ w: p.word, cl: p.clue, r: p.r, c: p.c, h: p.isHorizontal ? 1 : 0 }))
         };
@@ -173,14 +173,24 @@
         setShareUrl(url);
       };
 
-      // --- 로컬 저장 및 불러오기 관련 함수 ---
+      // 보관함용 URL 생성 함수
+      const getShareUrlFromSaved = (puzzle) => {
+        const minifiedData = {
+          ti: puzzle.title,
+          c: puzzle.data.c, r: puzzle.data.r, col: puzzle.data.col, t: puzzle.data.t,
+          w: puzzle.data.w
+        };
+        const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(minifiedData));
+        return window.location.origin + window.location.pathname + "?d=" + compressed;
+      };
+
       const handleSavePuzzle = () => {
         if(placedWords.length === 0) return alert("저장할 단어가 없습니다.");
         
         const newPuzzle = {
           id: Date.now(),
           title: puzzleTitle,
-          date: new Date().toLocaleDateString(),
+          date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
           data: {
             c: boardCols, r: boardRows, col: emptyColor, t: templateStyle,
             w: placedWords.map(p => ({ w: p.word, cl: p.clue, r: p.r, c: p.c, h: p.isHorizontal ? 1 : 0 }))
@@ -190,11 +200,11 @@
         const updatedPuzzles = [newPuzzle, ...savedPuzzles];
         setSavedPuzzles(updatedPuzzles);
         localStorage.setItem('crosswordSavedPuzzles', JSON.stringify(updatedPuzzles));
-        alert('임시 보관함에 성공적으로 저장되었습니다.');
+        alert('보관함에 성공적으로 저장되었습니다.');
       };
 
       const handleLoadPuzzle = (puzzle) => {
-        if(confirm(`[${puzzle.title}] 퍼즐을 불러오시겠습니까?\n현재 작업 중인 내용은 덮어씌워집니다.`)) {
+        if(confirm(`[${puzzle.title}] 퍼즐을 편집하시겠습니까?\n현재 에디터에 작성 중인 내용은 덮어씌워집니다.`)) {
           const parsed = puzzle.data;
           setPuzzleTitle(puzzle.title);
           setBoardCols(parsed.c);
@@ -205,25 +215,23 @@
             id: idx, word: p.w, clue: p.cl, r: p.r, c: p.c, isHorizontal: p.h === 1
           }));
           setPlacedWords(words);
+          setCurrentView('editor'); // 에디터 탭으로 자동 이동
         }
       };
 
-      const handleDeleteSavedPuzzle = (e, id) => {
-        e.stopPropagation(); // 불러오기 이벤트 방지
-        if(confirm("저장된 퍼즐을 삭제하시겠습니까?")) {
+      const handleDeleteSavedPuzzle = (id) => {
+        if(confirm("저장된 퍼즐을 완전히 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.")) {
           const updated = savedPuzzles.filter(p => p.id !== id);
           setSavedPuzzles(updated);
           localStorage.setItem('crosswordSavedPuzzles', JSON.stringify(updated));
         }
       };
 
-      // 학생 입력 채점
       const handleStudentInput = (r, c, value) => {
         setStudentChecked(false);
         setStudentInputs(prev => ({ ...prev, [`${r}-${c}`]: value.toUpperCase() }));
       };
 
-      // 템플릿에 따른 그리드 렌더링 함수
       const renderGrid = (isInteractive, isEditor) => {
         const isFloating = templateStyle === 'floating';
         const containerClass = isFloating 
@@ -301,7 +309,6 @@
       // ----------------- [1. 학생용 온라인 풀이 화면] -----------------
       if (isStudentMode) {
         const bgStyle = templateStyle === 'floating' ? "bg-gradient-to-br from-indigo-50 via-white to-blue-50" : "bg-gray-100";
-        
         return (
           <div className={`flex flex-col h-screen ${bgStyle}`}>
             <header className="bg-white shadow px-6 py-4 flex justify-between items-center border-b-4 border-blue-600 flex-shrink-0">
@@ -310,12 +317,10 @@
                 <IconCheck /> 정답 확인
               </button>
             </header>
-
             <main className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 max-w-6xl mx-auto w-full">
               <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg flex justify-center items-start overflow-x-auto min-h-[400px]">
                 {renderGrid(true, false)}
               </div>
-
               <div className="bg-white p-6 rounded-2xl shadow-lg">
                 <h2 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">열쇠 (힌트)</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -348,7 +353,7 @@
         );
       }
 
-      // ----------------- [2. 교사용 에디터 화면] -----------------
+      // ----------------- [2. 교사용 에디터 & 보관함 화면] -----------------
       return (
         <div className="flex flex-col md:flex-row h-screen bg-gray-50">
           
@@ -356,239 +361,284 @@
           <aside className="w-full md:w-64 bg-white shadow-xl z-20 flex-shrink-0 flex flex-col no-print border-r">
             <div className="p-5 bg-slate-800 text-white border-b border-slate-700">
               <h1 className="text-xl font-bold mb-1">퍼즐 제작소</h1>
-              <p className="text-slate-400 text-sm">에디터 대시보드</p>
+              <p className="text-slate-400 text-sm">교사 전용 대시보드</p>
             </div>
             
-            <div className="p-4 flex flex-col gap-2 border-b">
-              <button onClick={() => setShowAnswers(!showAnswers)} className={`flex items-center gap-3 w-full text-left p-3 rounded-lg font-bold transition ${showAnswers ? 'bg-indigo-100 text-indigo-700 border border-indigo-200' : 'text-gray-600 hover:bg-gray-100'}`}>
-                {showAnswers ? <IconEyeOff /> : <IconEye />} 정답 보기
+            <div className="p-4 flex flex-col gap-2">
+              <button onClick={() => setCurrentView('editor')} className={`flex items-center gap-3 w-full text-left p-3 rounded-lg font-bold transition ${currentView === 'editor' ? 'bg-blue-100 text-blue-700 border border-blue-200 shadow-sm' : 'text-gray-600 hover:bg-gray-100'}`}>
+                <IconEdit /> 에디터 홈
               </button>
-              <button onClick={generateShareLink} className="flex items-center gap-3 w-full text-left p-3 rounded-lg font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 transition border border-blue-200">
-                <IconShare /> 공유 (QR)
-              </button>
-              <button onClick={() => window.print()} className="flex items-center gap-3 w-full text-left p-3 rounded-lg font-bold bg-green-50 text-green-700 hover:bg-green-100 transition border border-green-200">
-                <IconPrinter /> 출력 (인쇄)
-              </button>
-              <button onClick={handleSavePuzzle} className="flex items-center gap-3 w-full text-left p-3 rounded-lg font-bold bg-amber-50 text-amber-700 hover:bg-amber-100 transition border border-amber-200 mt-2">
-                <IconSave /> 현재 퍼즐 임시저장
+              <button onClick={() => setCurrentView('archive')} className={`flex items-center gap-3 w-full text-left p-3 rounded-lg font-bold transition ${currentView === 'archive' ? 'bg-blue-100 text-blue-700 border border-blue-200 shadow-sm' : 'text-gray-600 hover:bg-gray-100'}`}>
+                <IconFolder /> 보관함 <span className="ml-auto bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-xs">{savedPuzzles.length}</span>
               </button>
             </div>
-
-            {/* 저장된 퍼즐 목록 (사이드바 하단) */}
-            <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
-              <h3 className="text-xs font-bold text-gray-500 mb-3 flex items-center gap-2 uppercase tracking-wider"><IconFolder /> 보관함 목록</h3>
-              {savedPuzzles.length === 0 ? (
-                <p className="text-sm text-gray-400 text-center py-4 bg-white rounded border border-dashed">저장된 내역이 없습니다.</p>
-              ) : (
-                <ul className="space-y-2">
-                  {savedPuzzles.map(puzzle => (
-                    <li key={puzzle.id} onClick={() => handleLoadPuzzle(puzzle)} className="bg-white p-3 rounded-lg border shadow-sm cursor-pointer hover:border-blue-400 hover:shadow-md transition group relative">
-                      <div className="pr-6">
-                        <p className="font-bold text-gray-800 text-sm truncate">{puzzle.title}</p>
-                        <p className="text-xs text-gray-500 mt-1">{puzzle.date}</p>
-                      </div>
-                      <button onClick={(e) => handleDeleteSavedPuzzle(e, puzzle.id)} className="absolute top-3 right-2 text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
-                        <IconTrash />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            
+            {/* 에디터 화면일 때만 보이는 기능 버튼들 */}
+            {currentView === 'editor' && (
+              <div className="mt-auto p-4 flex flex-col gap-2 border-t bg-gray-50">
+                <p className="text-xs font-bold text-gray-400 mb-1 px-1">현재 퍼즐 기능</p>
+                <button onClick={() => setShowAnswers(!showAnswers)} className={`flex items-center gap-3 w-full text-left p-2.5 rounded-lg text-sm font-bold transition ${showAnswers ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600 hover:bg-gray-200'}`}>
+                  {showAnswers ? <IconEyeOff /> : <IconEye />} 정답 보기
+                </button>
+                <button onClick={generateShareLink} className="flex items-center gap-3 w-full text-left p-2.5 rounded-lg text-sm font-bold text-gray-600 hover:bg-gray-200 transition">
+                  <IconShare /> 공유 (QR)
+                </button>
+                <button onClick={() => window.print()} className="flex items-center gap-3 w-full text-left p-2.5 rounded-lg text-sm font-bold text-gray-600 hover:bg-gray-200 transition">
+                  <IconPrinter /> 출력 (인쇄)
+                </button>
+              </div>
+            )}
           </aside>
 
           {/* 메인 작업 영역 */}
           <main id="main-content" className="flex-1 flex flex-col overflow-y-auto print:overflow-visible bg-gray-100 print:bg-white relative">
             
-            {shareUrl && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm no-print px-4">
-                <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-4xl relative animate-fade-in-up">
-                  <button onClick={() => setShareUrl('')} className="absolute top-6 right-6 text-gray-400 hover:text-red-500 font-bold text-3xl transition-transform hover:scale-110">×</button>
-                  <div className="text-center mb-8">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-blue-700 mb-4">🚀 학생 배포용 QR 코드</h2>
-                    <p className="text-gray-600 text-lg">전자칠판에 띄워두고 학생 스마트폰이나 태블릿으로 스캔하게 하세요.</p>
+            {/* A. 보관함 화면 */}
+            {currentView === 'archive' && (
+              <div className="p-6 md:p-10 max-w-5xl mx-auto w-full animate-fade-in">
+                <div className="flex items-center justify-between mb-8 border-b pb-4">
+                  <div>
+                    <h2 className="text-3xl font-extrabold text-gray-800 flex items-center gap-3"><IconFolder /> 저장된 퍼즐 보관함</h2>
+                    <p className="text-gray-500 mt-2">브라우저에 임시 저장된 퍼즐 목록입니다. 이전에 만든 퍼즐을 다시 수정하거나 링크를 바로 복사할 수 있습니다.</p>
                   </div>
-                  <div className="flex flex-col md:flex-row gap-10 items-center justify-center bg-blue-50/50 p-8 rounded-2xl border border-blue-100">
-                    <div className="bg-white p-4 rounded-2xl border shadow-md shrink-0">
-                      <img src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=L&data=${encodeURIComponent(shareUrl)}`} alt="QR Code" className="w-48 h-48 md:w-64 md:h-64 object-contain" />
-                    </div>
-                    <div className="w-full md:w-auto flex-1 text-center md:text-left">
-                      <h4 className="font-bold text-gray-800 mb-3 text-xl">웹 주소 (URL) 복사</h4>
-                      <div className="flex flex-col gap-3">
-                        <input type="text" readOnly value={shareUrl} className="w-full bg-white border-2 border-gray-200 p-4 rounded-xl text-sm text-gray-600 outline-none focus:border-blue-500 transition" />
-                        <button onClick={() => { navigator.clipboard.writeText(shareUrl); alert('복사완료!'); }} className="bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md">주소 복사하기</button>
-                      </div>
-                    </div>
-                  </div>
+                  <button onClick={() => setCurrentView('editor')} className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-blue-700 transition shadow">새 퍼즐 만들기</button>
                 </div>
+
+                {savedPuzzles.length === 0 ? (
+                  <div className="bg-white rounded-2xl shadow-sm border-2 border-dashed border-gray-300 p-16 text-center">
+                    <span className="text-5xl mb-4 block">📭</span>
+                    <h3 className="text-xl font-bold text-gray-600 mb-2">보관함이 비어있습니다.</h3>
+                    <p className="text-gray-500">에디터의 [환경 설정] 창에서 '임시저장'을 누르면 이곳에 목록이 나타납니다.</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    {savedPuzzles.map(puzzle => (
+                      <div key={puzzle.id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 items-center justify-between hover:shadow-md hover:border-blue-300 transition group">
+                        
+                        <div className="flex-1 w-full">
+                          <div className="flex items-center gap-3 mb-1">
+                            <h3 className="font-bold text-xl text-gray-800">{puzzle.title}</h3>
+                            <span className="text-xs font-medium bg-gray-100 text-gray-500 px-2 py-1 rounded-full">{puzzle.date}</span>
+                          </div>
+                          
+                          <div className="mt-4 flex gap-2 w-full max-w-2xl items-center bg-blue-50 p-2 rounded-lg border border-blue-100">
+                            <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded font-bold shrink-0">학생 링크</span>
+                            <input type="text" readOnly value={getShareUrlFromSaved(puzzle)} className="flex-1 bg-transparent border-none text-xs text-blue-900 outline-none truncate" />
+                            <button onClick={() => {navigator.clipboard.writeText(getShareUrlFromSaved(puzzle)); alert('링크가 복사되었습니다!');}} className="bg-blue-200 text-blue-800 hover:bg-blue-300 px-3 py-1.5 rounded text-xs font-bold transition shrink-0 shadow-sm">복사</button>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-3 w-full md:w-auto shrink-0 border-t md:border-t-0 pt-4 md:pt-0">
+                          <button onClick={() => handleLoadPuzzle(puzzle)} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 px-5 py-2.5 rounded-lg font-bold transition">
+                            <IconEdit /> 편집하기
+                          </button>
+                          <button onClick={() => handleDeleteSavedPuzzle(puzzle.id)} className="flex items-center justify-center bg-white border border-gray-200 text-gray-400 hover:bg-red-50 hover:text-red-600 hover:border-red-200 px-4 py-2.5 rounded-lg transition" title="삭제">
+                            <IconTrash />
+                          </button>
+                        </div>
+
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
-            <div className="p-4 md:p-6 flex flex-col lg:flex-row gap-6 no-print max-w-[1600px] mx-auto w-full">
-              
-              {/* 왼쪽: 모눈종이 캔버스 & 하단 열쇠 목록 */}
-              <div className="flex-[2] flex flex-col gap-6">
-                
-                <div className="bg-white shadow-md rounded-xl p-6 flex flex-col min-h-[500px]">
-                  <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-3 flex items-center gap-2">
-                    <span className="bg-blue-600 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-sm">1</span> 캔버스 보드 
-                    <span className="text-gray-400 font-normal text-lg ml-2">({puzzleTitle})</span>
-                  </h2>
-                  <div className="flex justify-center overflow-x-auto pb-4 flex-1 items-center bg-slate-50 rounded-lg p-4">
+            {/* B. 에디터 화면 */}
+            {currentView === 'editor' && (
+              <>
+                {/* 전자칠판용 대형 공유 모달창 */}
+                {shareUrl && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm no-print px-4">
+                    <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 w-full max-w-4xl relative animate-fade-in-up">
+                      <button onClick={() => setShareUrl('')} className="absolute top-6 right-6 text-gray-400 hover:text-red-500 font-bold text-3xl transition-transform hover:scale-110">×</button>
+                      <div className="text-center mb-8">
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-blue-700 mb-4">🚀 학생 배포용 QR 코드</h2>
+                        <p className="text-gray-600 text-lg">전자칠판에 띄워두고 학생 스마트폰이나 태블릿으로 스캔하게 하세요.</p>
+                      </div>
+                      <div className="flex flex-col md:flex-row gap-10 items-center justify-center bg-blue-50/50 p-8 rounded-2xl border border-blue-100">
+                        <div className="bg-white p-4 rounded-2xl border shadow-md shrink-0">
+                          <img src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=L&data=${encodeURIComponent(shareUrl)}`} alt="QR Code" className="w-48 h-48 md:w-64 md:h-64 object-contain" />
+                        </div>
+                        <div className="w-full md:w-auto flex-1 text-center md:text-left">
+                          <h4 className="font-bold text-gray-800 mb-3 text-xl">웹 주소 (URL) 복사</h4>
+                          <div className="flex flex-col gap-3">
+                            <input type="text" readOnly value={shareUrl} className="w-full bg-white border-2 border-gray-200 p-4 rounded-xl text-sm text-gray-600 outline-none focus:border-blue-500 transition" />
+                            <button onClick={() => { navigator.clipboard.writeText(shareUrl); alert('복사완료!'); }} className="bg-blue-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-md">주소 복사하기</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="p-4 md:p-6 flex flex-col lg:flex-row gap-6 no-print max-w-[1600px] mx-auto w-full animate-fade-in">
+                  
+                  {/* 왼쪽: 모눈종이 캔버스 & 하단 열쇠 목록 */}
+                  <div className="flex-[2] flex flex-col gap-6">
+                    
+                    <div className="bg-white shadow-md rounded-xl p-6 flex flex-col min-h-[500px]">
+                      <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-3 flex items-center gap-2">
+                        <span className="bg-blue-600 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-sm">1</span> 캔버스 보드 
+                        <span className="text-gray-400 font-normal text-lg ml-2">({puzzleTitle})</span>
+                      </h2>
+                      <div className="flex justify-center overflow-x-auto pb-4 flex-1 items-center bg-slate-50 rounded-lg p-4">
+                        {renderGrid(false, true)}
+                      </div>
+                    </div>
+
+                    <div className="bg-white shadow-md rounded-xl p-6">
+                      <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-3 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-blue-600 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-sm">3</span> 등록된 열쇠 목록
+                        </div>
+                        <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">총 {placedWords.length}개</span>
+                      </h2>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                          <h4 className="text-base font-bold text-blue-700 mb-3 bg-blue-50 p-2 rounded">가로 열쇠 (Across)</h4>
+                          {clues.across.length === 0 ? <p className="text-sm text-gray-400 pl-2">없음</p> : (
+                            <ul className="space-y-2">
+                              {clues.across.map(c => (
+                                <li key={c.id} className="group flex justify-between items-start text-sm bg-white p-3 rounded border border-gray-200 hover:border-blue-400 shadow-sm transition">
+                                  <div className="flex gap-3">
+                                    <span className="font-bold text-blue-600 min-w-[16px]">{c.number}.</span>
+                                    <span className="text-gray-700">{c.clue}</span>
+                                  </div>
+                                  <button onClick={() => handleDeleteWord(c.id)} className="text-gray-300 hover:text-red-500 transition p-1 shrink-0"><IconTrash/></button>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                        <div>
+                          <h4 className="text-base font-bold text-green-700 mb-3 bg-green-50 p-2 rounded">세로 열쇠 (Down)</h4>
+                          {clues.down.length === 0 ? <p className="text-sm text-gray-400 pl-2">없음</p> : (
+                            <ul className="space-y-2">
+                              {clues.down.map(c => (
+                                <li key={c.id} className="group flex justify-between items-start text-sm bg-white p-3 rounded border border-gray-200 hover:border-green-400 shadow-sm transition">
+                                  <div className="flex gap-3">
+                                    <span className="font-bold text-green-600 min-w-[16px]">{c.number}.</span>
+                                    <span className="text-gray-700">{c.clue}</span>
+                                  </div>
+                                  <button onClick={() => handleDeleteWord(c.id)} className="text-gray-300 hover:text-red-500 transition p-1 shrink-0"><IconTrash/></button>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  {/* 오른쪽: 옵션 박스 & 단어 입력 폼 */}
+                  <div className="flex-[1] flex flex-col gap-6 min-w-[320px]">
+                    
+                    <div className="bg-white shadow-md rounded-xl p-5 border-t-4 border-slate-700">
+                      <h3 className="font-bold text-gray-800 mb-4 flex items-center justify-between">
+                        <span className="flex items-center gap-2"><IconSettings /> 환경 설정 (옵션)</span>
+                        <button onClick={handleSavePuzzle} className="text-xs bg-amber-100 text-amber-700 hover:bg-amber-200 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 transition shadow-sm border border-amber-200"><IconSave /> 보관함에 저장</button>
+                      </h3>
+                      
+                      <div className="space-y-4 bg-gray-50 p-4 rounded-xl border">
+                        <div>
+                          <span className="text-sm font-bold text-gray-700 block mb-2">퍼즐 주제 (제목)</span>
+                          <input type="text" value={puzzleTitle} onChange={(e) => setPuzzleTitle(e.target.value)} placeholder="예: 6학년 1학기 과학 복습" className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 outline-none text-sm font-bold text-gray-800" />
+                        </div>
+                        
+                        <hr className="border-gray-200"/>
+
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-bold text-gray-700">그리드 칸 수</span>
+                          <div className="flex gap-2">
+                            <label className="text-xs text-gray-500 flex items-center gap-1">가로 <input type="number" min="5" max="30" value={boardCols} onChange={e=>setBoardCols(Number(e.target.value))} className="w-12 border p-1 rounded text-center font-bold text-gray-800" /></label>
+                            <label className="text-xs text-gray-500 flex items-center gap-1">세로 <input type="number" min="5" max="30" value={boardRows} onChange={e=>setBoardRows(Number(e.target.value))} className="w-12 border p-1 rounded text-center font-bold text-gray-800" /></label>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="text-sm font-bold text-gray-700 block mb-2">디자인 템플릿</span>
+                          <div className="flex gap-2">
+                            <label className={`flex-1 flex justify-center items-center py-2 text-sm rounded border cursor-pointer font-bold transition ${templateStyle === 'traditional' ? 'bg-blue-50 border-blue-400 text-blue-700' : 'bg-white border-gray-200 text-gray-500'}`}>
+                              <input type="radio" name="template" value="traditional" checked={templateStyle === 'traditional'} onChange={(e) => setTemplateStyle(e.target.value)} className="hidden" /> 🟦 전통(채우기)
+                            </label>
+                            <label className={`flex-1 flex justify-center items-center py-2 text-sm rounded border cursor-pointer font-bold transition ${templateStyle === 'floating' ? 'bg-blue-50 border-blue-400 text-blue-700' : 'bg-white border-gray-200 text-gray-500'}`}>
+                              <input type="radio" name="template" value="floating" checked={templateStyle === 'floating'} onChange={(e) => setTemplateStyle(e.target.value)} className="hidden" /> ✨ 선 날리기
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className={`flex justify-between items-center transition-opacity ${templateStyle === 'floating' ? 'opacity-40 pointer-events-none' : ''}`}>
+                          <span className="text-sm font-bold text-gray-700">빈칸 배경색</span>
+                          <input type="color" value={emptyColor} onChange={e=>setEmptyColor(e.target.value)} className="w-8 h-8 rounded cursor-pointer border-0 p-0" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`bg-white shadow-md rounded-xl p-5 border-t-4 transition-colors ${selectedCell ? 'border-blue-600' : 'border-gray-200'}`}>
+                      <h3 className="font-bold text-gray-800 mb-4 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-blue-600 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-sm">2</span> 단어 입력
+                        </div>
+                        {selectedCell && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded shadow-sm font-bold">좌표: {selectedCell.r + 1}행 {selectedCell.c + 1}열</span>}
+                      </h3>
+                      
+                      {!selectedCell ? (
+                        <div className="bg-blue-50 border border-blue-100 p-6 rounded-xl text-center flex flex-col items-center justify-center min-h-[200px]">
+                          <span className="text-3xl mb-2">👆</span>
+                          <p className="text-sm font-bold text-blue-800">왼쪽 캔버스에서</p>
+                          <p className="text-sm text-blue-600">단어를 시작할 칸을 먼저 클릭하세요.</p>
+                        </div>
+                      ) : (
+                        <div className="space-y-4 animate-fade-in">
+                          <div className="flex gap-2 p-1 bg-gray-100 rounded-lg">
+                            <button onClick={() => setDirection('across')} className={`flex-1 py-2 text-sm font-bold rounded shadow-sm transition ${direction === 'across' ? 'bg-white text-blue-600 border border-blue-200' : 'text-gray-500 hover:bg-gray-200'}`}>가로 ➔</button>
+                            <button onClick={() => setDirection('down')} className={`flex-1 py-2 text-sm font-bold rounded shadow-sm transition ${direction === 'down' ? 'bg-white text-blue-600 border border-blue-200' : 'text-gray-500 hover:bg-gray-200'}`}>세로 ⬇</button>
+                          </div>
+                          
+                          <div>
+                            <label className="block text-xs font-bold text-gray-500 mb-1">단어 (Word)</label>
+                            <input type="text" value={inputWord} onChange={e => setInputWord(e.target.value)} placeholder="정답 단어 입력" className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none font-bold text-lg" />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-xs font-bold text-gray-500 mb-1">힌트 설명 (Clue)</label>
+                            <textarea value={inputClue} onChange={e => setInputClue(e.target.value)} placeholder="단어에 대한 힌트 입력" rows="3" className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none resize-none text-sm" />
+                          </div>
+                          
+                          <button onClick={handleAddWord} className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 transition shadow-md text-lg">보드에 배치하기</button>
+                        </div>
+                      )}
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* 인쇄용 렌더링 영역 */}
+                <div className="hidden print-only print:block p-8 bg-white">
+                  <h1 className="text-3xl font-bold text-center mb-10">{puzzleTitle}</h1>
+                  <div className="flex justify-center mb-12">
                     {renderGrid(false, true)}
                   </div>
-                </div>
-
-                <div className="bg-white shadow-md rounded-xl p-6">
-                  <h2 className="text-xl font-bold text-gray-800 mb-6 border-b pb-3 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="bg-blue-600 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-sm">3</span> 등록된 열쇠 목록
-                    </div>
-                    <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">총 {placedWords.length}개</span>
-                  </h2>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-2 gap-10 text-sm break-inside-avoid">
                     <div>
-                      <h4 className="text-base font-bold text-blue-700 mb-3 bg-blue-50 p-2 rounded">가로 열쇠 (Across)</h4>
-                      {clues.across.length === 0 ? <p className="text-sm text-gray-400 pl-2">없음</p> : (
-                        <ul className="space-y-2">
-                          {clues.across.map(c => (
-                            <li key={c.id} className="group flex justify-between items-start text-sm bg-white p-3 rounded border border-gray-200 hover:border-blue-400 shadow-sm transition">
-                              <div className="flex gap-3">
-                                <span className="font-bold text-blue-600 min-w-[16px]">{c.number}.</span>
-                                <span className="text-gray-700">{c.clue}</span>
-                              </div>
-                              <button onClick={() => handleDeleteWord(c.id)} className="text-gray-300 hover:text-red-500 transition p-1 shrink-0"><IconTrash/></button>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <h3 className="font-bold text-lg mb-4 border-b-2 border-gray-800 pb-2">가로 열쇠</h3>
+                      <ul className="space-y-3">
+                        {clues.across.map((c, i) => <li key={i} className="flex gap-3"><span className="font-bold min-w-[20px]">{c.number}.</span><span className="leading-relaxed">{c.clue}</span></li>)}
+                      </ul>
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-green-700 mb-3 bg-green-50 p-2 rounded">세로 열쇠 (Down)</h4>
-                      {clues.down.length === 0 ? <p className="text-sm text-gray-400 pl-2">없음</p> : (
-                        <ul className="space-y-2">
-                          {clues.down.map(c => (
-                            <li key={c.id} className="group flex justify-between items-start text-sm bg-white p-3 rounded border border-gray-200 hover:border-green-400 shadow-sm transition">
-                              <div className="flex gap-3">
-                                <span className="font-bold text-green-600 min-w-[16px]">{c.number}.</span>
-                                <span className="text-gray-700">{c.clue}</span>
-                              </div>
-                              <button onClick={() => handleDeleteWord(c.id)} className="text-gray-300 hover:text-red-500 transition p-1 shrink-0"><IconTrash/></button>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      <h3 className="font-bold text-lg mb-4 border-b-2 border-gray-800 pb-2">세로 열쇠</h3>
+                      <ul className="space-y-3">
+                        {clues.down.map((c, i) => <li key={i} className="flex gap-3"><span className="font-bold min-w-[20px]">{c.number}.</span><span className="leading-relaxed">{c.clue}</span></li>)}
+                      </ul>
                     </div>
                   </div>
                 </div>
-
-              </div>
-
-              {/* 오른쪽: 옵션 박스 & 단어 입력 폼 */}
-              <div className="flex-[1] flex flex-col gap-6 min-w-[320px]">
-                
-                <div className="bg-white shadow-md rounded-xl p-5 border-t-4 border-slate-700">
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <IconSettings /> 환경 설정 (옵션)
-                  </h3>
-                  
-                  <div className="space-y-4 bg-gray-50 p-4 rounded-xl border">
-                    {/* 주제 입력 (새로 추가됨) */}
-                    <div>
-                      <span className="text-sm font-bold text-gray-700 block mb-2">퍼즐 주제 (제목)</span>
-                      <input type="text" value={puzzleTitle} onChange={(e) => setPuzzleTitle(e.target.value)} placeholder="예: 6학년 1학기 과학 복습" className="w-full p-2 border border-gray-300 rounded focus:border-blue-500 outline-none text-sm font-bold text-gray-800" />
-                    </div>
-                    
-                    <hr className="border-gray-200"/>
-
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-bold text-gray-700">그리드 칸 수</span>
-                      <div className="flex gap-2">
-                        <label className="text-xs text-gray-500 flex items-center gap-1">가로 <input type="number" min="5" max="30" value={boardCols} onChange={e=>setBoardCols(Number(e.target.value))} className="w-12 border p-1 rounded text-center font-bold text-gray-800" /></label>
-                        <label className="text-xs text-gray-500 flex items-center gap-1">세로 <input type="number" min="5" max="30" value={boardRows} onChange={e=>setBoardRows(Number(e.target.value))} className="w-12 border p-1 rounded text-center font-bold text-gray-800" /></label>
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-sm font-bold text-gray-700 block mb-2">디자인 템플릿</span>
-                      <div className="flex gap-2">
-                        <label className={`flex-1 flex justify-center items-center py-2 text-sm rounded border cursor-pointer font-bold transition ${templateStyle === 'traditional' ? 'bg-blue-50 border-blue-400 text-blue-700' : 'bg-white border-gray-200 text-gray-500'}`}>
-                          <input type="radio" name="template" value="traditional" checked={templateStyle === 'traditional'} onChange={(e) => setTemplateStyle(e.target.value)} className="hidden" /> 🟦 전통(채우기)
-                        </label>
-                        <label className={`flex-1 flex justify-center items-center py-2 text-sm rounded border cursor-pointer font-bold transition ${templateStyle === 'floating' ? 'bg-blue-50 border-blue-400 text-blue-700' : 'bg-white border-gray-200 text-gray-500'}`}>
-                          <input type="radio" name="template" value="floating" checked={templateStyle === 'floating'} onChange={(e) => setTemplateStyle(e.target.value)} className="hidden" /> ✨ 선 날리기
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className={`flex justify-between items-center transition-opacity ${templateStyle === 'floating' ? 'opacity-40 pointer-events-none' : ''}`}>
-                      <span className="text-sm font-bold text-gray-700">빈칸 배경색</span>
-                      <input type="color" value={emptyColor} onChange={e=>setEmptyColor(e.target.value)} className="w-8 h-8 rounded cursor-pointer border-0 p-0" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className={`bg-white shadow-md rounded-xl p-5 border-t-4 transition-colors ${selectedCell ? 'border-blue-600' : 'border-gray-200'}`}>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="bg-blue-600 text-white w-6 h-6 rounded-full inline-flex items-center justify-center text-sm">2</span> 단어 입력
-                    </div>
-                    {selectedCell && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded shadow-sm font-bold">좌표: {selectedCell.r + 1}행 {selectedCell.c + 1}열</span>}
-                  </h3>
-                  
-                  {!selectedCell ? (
-                    <div className="bg-blue-50 border border-blue-100 p-6 rounded-xl text-center flex flex-col items-center justify-center min-h-[200px]">
-                      <span className="text-3xl mb-2">👆</span>
-                      <p className="text-sm font-bold text-blue-800">왼쪽 캔버스에서</p>
-                      <p className="text-sm text-blue-600">단어를 시작할 칸을 먼저 클릭하세요.</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-4 animate-fade-in">
-                      <div className="flex gap-2 p-1 bg-gray-100 rounded-lg">
-                        <button onClick={() => setDirection('across')} className={`flex-1 py-2 text-sm font-bold rounded shadow-sm transition ${direction === 'across' ? 'bg-white text-blue-600 border border-blue-200' : 'text-gray-500 hover:bg-gray-200'}`}>가로 ➔</button>
-                        <button onClick={() => setDirection('down')} className={`flex-1 py-2 text-sm font-bold rounded shadow-sm transition ${direction === 'down' ? 'bg-white text-blue-600 border border-blue-200' : 'text-gray-500 hover:bg-gray-200'}`}>세로 ⬇</button>
-                      </div>
-                      
-                      <div>
-                        <label className="block text-xs font-bold text-gray-500 mb-1">단어 (Word)</label>
-                        <input type="text" value={inputWord} onChange={e => setInputWord(e.target.value)} placeholder="정답 단어 입력" className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none font-bold text-lg" />
-                      </div>
-                      
-                      <div>
-                        <label className="block text-xs font-bold text-gray-500 mb-1">힌트 설명 (Clue)</label>
-                        <textarea value={inputClue} onChange={e => setInputClue(e.target.value)} placeholder="단어에 대한 힌트 입력" rows="3" className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 outline-none resize-none text-sm" />
-                      </div>
-                      
-                      <button onClick={handleAddWord} className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 transition shadow-md text-lg">보드에 배치하기</button>
-                    </div>
-                  )}
-                </div>
-
-              </div>
-            </div>
-
-            {/* 인쇄용 렌더링 영역 */}
-            <div className="hidden print-only print:block p-8 bg-white">
-              <h1 className="text-3xl font-bold text-center mb-10">{puzzleTitle}</h1>
-              <div className="flex justify-center mb-12">
-                {renderGrid(false, true)}
-              </div>
-              <div className="grid grid-cols-2 gap-10 text-sm break-inside-avoid">
-                <div>
-                  <h3 className="font-bold text-lg mb-4 border-b-2 border-gray-800 pb-2">가로 열쇠</h3>
-                  <ul className="space-y-3">
-                    {clues.across.map((c, i) => <li key={i} className="flex gap-3"><span className="font-bold min-w-[20px]">{c.number}.</span><span className="leading-relaxed">{c.clue}</span></li>)}
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-4 border-b-2 border-gray-800 pb-2">세로 열쇠</h3>
-                  <ul className="space-y-3">
-                    {clues.down.map((c, i) => <li key={i} className="flex gap-3"><span className="font-bold min-w-[20px]">{c.number}.</span><span className="leading-relaxed">{c.clue}</span></li>)}
-                  </ul>
-                </div>
-              </div>
-            </div>
+              </>
+            )}
 
           </main>
         </div>
