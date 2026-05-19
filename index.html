@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>십자말풀이 퍼즐 메이커</title>
+  <title>십자말풀이 퍼즐 메이커 (수동 에디터)</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -16,444 +16,317 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState, useRef } = React;
+    const { useState, useMemo } = React;
 
-    const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
-    const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>;
-    const IconPlay = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>;
+    const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>;
     const IconPrinter = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>;
-    const IconEye = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>;
-    const IconEyeOff = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>;
-    const IconEdit = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>;
-    const IconSettings = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>;
+    const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
 
     function App() {
-      const [activeTab, setActiveTab] = useState('input');
+      // 보드 설정
+      const [boardCols, setBoardCols] = useState(15);
+      const [boardRows, setBoardRows] = useState(15);
       
-      const [wordList, setWordList] = useState([
-        { word: '학교', clue: '학생들이 모여서 교육을 받는 곳' },
-        { word: '교실', clue: '선생님과 학생들이 모여 수업을 하는 방' },
-        { word: '실내화', clue: '건물 안에서 신는 신발' },
-        { word: '독립단어', clue: '겹치는 글자가 없는 단어도 알아서 들어갑니다.' }
-      ]);
+      // 배치된 단어들 목록 { id, word, clue, r, c, isHorizontal }
+      const [placedWords, setPlacedWords] = useState([]);
       
-      const [grid, setGrid] = useState([]);
-      const [clues, setClues] = useState({ across: [], down: [] });
-      const [isGenerated, setIsGenerated] = useState(false);
+      // 사용자 입력 상태
+      const [selectedCell, setSelectedCell] = useState(null); // { r, c }
+      const [direction, setDirection] = useState('across'); // 'across' | 'down'
+      const [inputWord, setInputWord] = useState('');
+      const [inputClue, setInputClue] = useState('');
+
+      // 인쇄 모드 상태
+      const [isPrintMode, setIsPrintMode] = useState(false);
       const [showAnswers, setShowAnswers] = useState(false);
-      
-      // 퍼즐판 크기 및 여백 설정 상태 추가
-      const [gridCols, setGridCols] = useState(20); // 가로 칸 수
-      const [gridRows, setGridRows] = useState(20); // 세로 칸 수
-      const [autoTrim, setAutoTrim] = useState(true); // 자동 여백 제거 (기본값 ON)
 
-      const [printOrientation, setPrintOrientation] = useState('portrait');
-      const [cellSize, setCellSize] = useState(40);
-
-      const addWord = () => setWordList([...wordList, { word: '', clue: '' }]);
-      const removeWord = (index) => setWordList(wordList.filter((_, i) => i !== index));
-      const handleChange = (index, field, value) => {
-        const newList = [...wordList];
-        newList[index][field] = value;
-        setWordList(newList);
-      };
-
-      const generateCrossword = () => {
-        const words = wordList
-          .filter(item => item.word.trim() !== '' && item.clue.trim() !== '')
-          .map(item => ({ ...item, word: item.word.trim().toUpperCase() }))
-          .sort((a, b) => b.word.length - a.word.length);
-
-        if (words.length === 0) {
-          alert("단어와 힌트를 입력해주세요.");
-          return;
-        }
-
-        const GRID_W = parseInt(gridCols) || 20;
-        const GRID_H = parseInt(gridRows) || 20;
-        let board = Array(GRID_H).fill(null).map(() => Array(GRID_W).fill(null));
-        let placedWords = [];
-
-        // 단어 배치 검사
-        const canPlace = (word, row, col, isHorizontal) => {
-          if (isHorizontal && col + word.length > GRID_W) return false;
-          if (!isHorizontal && row + word.length > GRID_H) return false;
-
-          for (let i = 0; i < word.length; i++) {
-            let r = isHorizontal ? row : row + i;
-            let c = isHorizontal ? col + i : col;
-
-            if (board[r][c] !== null && board[r][c].letter !== word[i]) return false;
-
-            if (board[r][c] === null) {
-              if (isHorizontal) {
-                if (r > 0 && board[r - 1][c] !== null) return false;
-                if (r < GRID_H - 1 && board[r + 1][c] !== null) return false;
-              } else {
-                if (c > 0 && board[r][c - 1] !== null) return false;
-                if (c < GRID_W - 1 && board[r][c + 1] !== null) return false;
-              }
-            }
-          }
-          
-          if (isHorizontal) {
-            if (col > 0 && board[row][col - 1] !== null) return false;
-            if (col + word.length < GRID_W && board[row][col + word.length] !== null) return false;
-          } else {
-            if (row > 0 && board[row - 1][col] !== null) return false;
-            if (row + word.length < GRID_H && board[row + word.length][col] !== null) return false;
-          }
-          return true;
-        };
-
-        const placeWord = (wordObj, row, col, isHorizontal) => {
-          for (let i = 0; i < wordObj.word.length; i++) {
-            let r = isHorizontal ? row : row + i;
-            let c = isHorizontal ? col + i : col;
-            board[r][c] = { letter: wordObj.word[i], number: null };
-          }
-          placedWords.push({ ...wordObj, row, col, isHorizontal });
-        };
-
-        // 1. 첫 단어 중앙 배치
-        const firstWord = words[0];
-        let startRow = Math.floor(GRID_H / 2);
-        let startCol = Math.floor((GRID_W - firstWord.word.length) / 2);
-        
-        // 칸 수가 너무 작아서 중앙 배치가 안 되면 0,0으로 강제 이동
-        if (!canPlace(firstWord.word, startRow, startCol, true)) {
-          startRow = 0; startCol = 0;
-        }
-        
-        if (canPlace(firstWord.word, startRow, startCol, true)) {
-          placeWord(firstWord, startRow, startCol, true);
-        } else {
-          alert(`칸 수(${GRID_W}x${GRID_H})가 너무 작아 "${firstWord.word}" 단어를 배치할 수 없습니다. 칸 수를 늘려주세요.`);
-          return;
-        }
-
-        // 2. 교차점 기반 단어 배치
-        for (let i = 1; i < words.length; i++) {
-          let currentWord = words[i];
-          let placed = false;
-
-          for (let j = 0; j < placedWords.length; j++) {
-            if (placed) break;
-            let targetWord = placedWords[j];
-
-            for (let c1 = 0; c1 < currentWord.word.length; c1++) {
-              if (placed) break;
-              for (let c2 = 0; c2 < targetWord.word.length; c2++) {
-                if (currentWord.word[c1] === targetWord.word[c2]) {
-                  let newRow = targetWord.isHorizontal ? targetWord.row - c1 : targetWord.row + c2;
-                  let newCol = targetWord.isHorizontal ? targetWord.col + c2 : targetWord.col - c1;
-                  let newIsHorizontal = !targetWord.isHorizontal;
-
-                  if (newRow >= 0 && newCol >= 0 && canPlace(currentWord.word, newRow, newCol, newIsHorizontal)) {
-                    placeWord(currentWord, newRow, newCol, newIsHorizontal);
-                    placed = true;
-                    break;
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        // 3. 교차점 없는 '독립 단어' 밀착 배치 (이전 버그 수정 핵심)
-        let unplacedWords = words.filter(w => !placedWords.some(pw => pw.word === w.word));
-        for (let currentWord of unplacedWords) {
-          let placed = false;
-          
-          // 현재까지 배치된 단어들의 영역(바운딩 박스) 파악
-          let curMinR = GRID_H, curMaxR = 0, curMinC = GRID_W, curMaxC = 0;
-          for (let w of placedWords) {
-            let endR = w.isHorizontal ? w.row : w.row + w.word.length - 1;
-            let endC = w.isHorizontal ? w.col + w.word.length - 1 : w.col;
-            if (w.row < curMinR) curMinR = w.row;
-            if (endR > curMaxR) curMaxR = endR;
-            if (w.col < curMinC) curMinC = w.col;
-            if (endC > curMaxC) curMaxC = endC;
-          }
-
-          // 맨 왼쪽 위(0,0)부터 찾지 않고, 기존 단어 영역 근처부터 탐색하여 밀착시킴
-          let searchMinR = Math.max(0, curMinR - 2);
-          let searchMaxR = Math.min(GRID_H - 1, curMaxR + 2);
-          let searchMinC = Math.max(0, curMinC - 2);
-          let searchMaxC = Math.min(GRID_W - 1, curMaxC + 2);
-
-          for (let r = searchMinR; r <= searchMaxR && !placed; r++) {
-            for (let c = searchMinC; c <= searchMaxC && !placed; c++) {
-              if (canPlace(currentWord.word, r, c, true)) {
-                placeWord(currentWord, r, c, true);
-                placed = true;
-              } else if (canPlace(currentWord.word, r, c, false)) {
-                placeWord(currentWord, r, c, false);
-                placed = true;
-              }
-            }
-          }
-          
-          // 근처에 자리가 없으면 전체 영역에서 다시 탐색
-          if (!placed) {
-            for (let r = 0; r < GRID_H && !placed; r++) {
-              for (let c = 0; c < GRID_W && !placed; c++) {
-                 if (canPlace(currentWord.word, r, c, true)) {
-                    placeWord(currentWord, r, c, true); placed = true;
-                 } else if (canPlace(currentWord.word, r, c, false)) {
-                    placeWord(currentWord, r, c, false); placed = true;
-                 }
-              }
-            }
-          }
-        }
-
-        // 4. 번호 매기기
+      // placedWords를 바탕으로 실시간 2D 그리드 생성 (충돌 검사 및 렌더링용)
+      const { grid, clues } = useMemo(() => {
+        let newGrid = Array(boardRows).fill(null).map(() => Array(boardCols).fill(null));
         let acrossClues = [];
         let downClues = [];
         let currentNumber = 1;
 
-        for (let r = 0; r < GRID_H; r++) {
-          for (let c = 0; c < GRID_W; c++) {
+        // 글자 먼저 채우기
+        placedWords.forEach(wordObj => {
+          for (let i = 0; i < wordObj.word.length; i++) {
+            let r = wordObj.isHorizontal ? wordObj.r : wordObj.r + i;
+            let c = wordObj.isHorizontal ? wordObj.c + i : wordObj.c;
+            if (r < boardRows && c < boardCols) {
+              if (!newGrid[r][c]) newGrid[r][c] = { letter: wordObj.word[i], number: null };
+            }
+          }
+        });
+
+        // 시작점 번호 매기기 및 힌트 분류
+        for (let r = 0; r < boardRows; r++) {
+          for (let c = 0; c < boardCols; c++) {
             let startsWord = false;
             
-            let wordStartsAcross = placedWords.find(w => w.isHorizontal && w.row === r && w.col === c);
-            if (wordStartsAcross) {
-              acrossClues.push({ number: currentNumber, clue: wordStartsAcross.clue, word: wordStartsAcross.word });
+            let wordAcross = placedWords.find(w => w.isHorizontal && w.r === r && w.c === c);
+            if (wordAcross) {
+              acrossClues.push({ number: currentNumber, clue: wordAcross.clue });
               startsWord = true;
             }
 
-            let wordStartsDown = placedWords.find(w => !w.isHorizontal && w.row === r && w.col === c);
-            if (wordStartsDown) {
-              downClues.push({ number: currentNumber, clue: wordStartsDown.clue, word: wordStartsDown.word });
+            let wordDown = placedWords.find(w => !w.isHorizontal && w.r === r && w.c === c);
+            if (wordDown) {
+              downClues.push({ number: currentNumber, clue: wordDown.clue });
               startsWord = true;
             }
 
-            if (startsWord) {
-              board[r][c].number = currentNumber;
+            if (startsWord && newGrid[r][c]) {
+              newGrid[r][c].number = currentNumber;
               currentNumber++;
             }
           }
         }
 
-        // 5. 그리드 결정 (자동 여백 제거가 켜져있으면 잘라내기, 꺼져있으면 원본 크기 유지)
-        if (autoTrim) {
-          let minR = GRID_H, maxR = 0, minC = GRID_W, maxC = 0;
-          for (let r = 0; r < GRID_H; r++) {
-            for (let c = 0; c < GRID_W; c++) {
-              if (board[r][c] !== null) {
-                if (r < minR) minR = r;
-                if (r > maxR) maxR = r;
-                if (c < minC) minC = c;
-                if (c > maxC) maxC = c;
-              }
-            }
-          }
+        return { grid: newGrid, clues: { across: acrossClues, down: downClues } };
+      }, [placedWords, boardRows, boardCols]);
 
-          let trimmedBoard = [];
-          if (minR <= maxR && minC <= maxC) {
-            for (let r = minR; r <= maxR; r++) {
-              trimmedBoard.push(board[r].slice(minC, maxC + 1));
-            }
-            setGrid(trimmedBoard);
-          } else {
-             setGrid(board); // 빈 보드일 경우
-          }
-        } else {
-          setGrid(board); // 설정한 가로x세로 칸 수 그대로 적용
-        }
-
-        setClues({ across: acrossClues, down: downClues });
-        setIsGenerated(true);
-        setActiveTab('preview');
-        setShowAnswers(false);
+      // 칸 클릭 핸들러
+      const handleCellClick = (r, c) => {
+        setSelectedCell({ r, c });
       };
 
-      const handlePrint = () => window.print();
+      // 단어 배치 로직
+      const handleAddWord = () => {
+        if (!selectedCell) return alert("먼저 그리드에서 단어가 시작할 칸을 클릭해주세요.");
+        if (!inputWord.trim() || !inputClue.trim()) return alert("단어와 힌트를 모두 입력해주세요.");
 
-      return (
-        <div>
-          <style>
-            {`
-              @media print {
-                @page { size: A4 ${printOrientation}; margin: 1.5cm; }
-                body { background: white !important; margin: 0; padding: 0; }
-                .no-print { display: none !important; }
-                .print-only { display: block !important; }
-                .print-break-inside-avoid { break-inside: avoid; }
-                .crossword-cell input { border: none !important; background: transparent !important; }
-                #print-container { width: 100% !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; }
-              }
-            `}
-          </style>
+        const word = inputWord.trim().toUpperCase();
+        const isHorizontal = direction === 'across';
+        const { r, c } = selectedCell;
 
-          <header className="bg-white shadow-md mb-6 no-print">
-            <div className="max-w-6xl mx-auto px-4">
-              <div className="flex flex-col sm:flex-row justify-between items-center py-4">
-                <h1 className="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">십자말풀이 퍼즐 메이커</h1>
-                <nav className="flex space-x-1 sm:space-x-4 bg-gray-100 p-1 rounded-lg">
-                  <button onClick={() => setActiveTab('input')} className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition ${activeTab === 'input' ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}><IconEdit /> 단어 입력</button>
-                  <button onClick={() => setActiveTab('preview')} disabled={!isGenerated} className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition ${!isGenerated ? 'opacity-50 cursor-not-allowed' : activeTab === 'preview' ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}><IconEye /> 퍼즐/정답 보기</button>
-                  <button onClick={() => setActiveTab('print')} disabled={!isGenerated} className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition ${!isGenerated ? 'opacity-50 cursor-not-allowed' : activeTab === 'print' ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}><IconSettings /> 인쇄/PDF 설정</button>
-                </nav>
+        // 경계선 이탈 검사
+        if (isHorizontal && c + word.length > boardCols) return alert("단어가 보드 가로 크기를 벗어납니다.");
+        if (!isHorizontal && r + word.length > boardRows) return alert("단어가 보드 세로 크기를 벗어납니다.");
+
+        // 글자 충돌 검사 (핵심 로직: 기존 글자와 같으면 허용, 다르면 차단)
+        for (let i = 0; i < word.length; i++) {
+          let checkR = isHorizontal ? r : r + i;
+          let checkC = isHorizontal ? c + i : c;
+          
+          if (grid[checkR][checkC] !== null && grid[checkR][checkC].letter !== word[i]) {
+            return alert(`'${word[i]}' 글자가 기존에 배치된 칸의 글자와 충돌합니다. 위치나 방향을 다시 확인해주세요.`);
+          }
+        }
+
+        // 문제 없으면 단어 목록에 추가 (자동으로 그리드가 리렌더링됨)
+        const newWord = {
+          id: Date.now(),
+          word: word,
+          clue: inputClue,
+          r: r,
+          c: c,
+          isHorizontal: isHorizontal
+        };
+
+        setPlacedWords([...placedWords, newWord]);
+        setInputWord('');
+        setInputClue('');
+        setSelectedCell(null); // 배치 후 선택 해제
+      };
+
+      // 배치된 단어 삭제
+      const handleDeleteWord = (id) => {
+        setPlacedWords(placedWords.filter(w => w.id !== id));
+      };
+
+      // 보드 초기화
+      const handleResetBoard = () => {
+        if(confirm("배치된 모든 단어가 삭제됩니다. 초기화 하시겠습니까?")) {
+          setPlacedWords([]);
+          setSelectedCell(null);
+        }
+      };
+
+      const handlePrint = () => {
+        setIsPrintMode(true);
+        setTimeout(() => {
+          window.print();
+          setIsPrintMode(false);
+        }, 100);
+      };
+
+      // 인쇄 모드 렌더링
+      if (isPrintMode) {
+        return (
+          <div className="bg-white p-8">
+            <style>
+              {`@media print { @page { size: A4 portrait; margin: 1.5cm; } body { background: white !important; } }`}
+            </style>
+            <h1 className="text-3xl font-bold text-center mb-8">십자말풀이 퍼즐</h1>
+            <div className="flex justify-center mb-10">
+              <div className="inline-grid gap-0 bg-black border-2 border-black" style={{ gridTemplateColumns: `repeat(${boardCols}, minmax(0, 1fr))` }}>
+                {grid.map((row, rIdx) => row.map((cell, cIdx) => (
+                  <div key={`${rIdx}-${cIdx}`} className={`w-10 h-10 relative flex items-center justify-center border border-gray-400 ${cell === null ? 'bg-black border-black' : 'bg-white'}`}>
+                    {cell !== null && (
+                      <>
+                        {cell.number && <span className="absolute top-0.5 left-1 text-[10px] font-bold text-gray-700 z-10">{cell.number}</span>}
+                        <span className={`text-lg font-bold ${showAnswers ? 'text-gray-900' : 'text-transparent'}`}>{showAnswers ? cell.letter : ''}</span>
+                      </>
+                    )}
+                  </div>
+                )))}
               </div>
+            </div>
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h3 className="font-bold text-lg mb-3 border-b-2 border-gray-800 pb-2">가로 열쇠</h3>
+                <ul className="space-y-3">
+                  {clues.across.map((c, i) => <li key={i} className="flex gap-2 text-sm"><span className="font-bold min-w-[20px]">{c.number}.</span><span>{c.clue}</span></li>)}
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-3 border-b-2 border-gray-800 pb-2">세로 열쇠</h3>
+                <ul className="space-y-3">
+                  {clues.down.map((c, i) => <li key={i} className="flex gap-2 text-sm"><span className="font-bold min-w-[20px]">{c.number}.</span><span>{c.clue}</span></li>)}
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // 일반 편집 모드 렌더링
+      return (
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <header className="flex justify-between items-center bg-white shadow rounded-xl p-6 mb-6">
+            <h1 className="text-2xl font-bold text-gray-800">십자말풀이 직접 만들기 (에디터 모드)</h1>
+            <div className="flex gap-3">
+              <button onClick={() => setShowAnswers(!showAnswers)} className="px-4 py-2 border border-indigo-200 text-indigo-700 rounded-lg hover:bg-indigo-50 font-medium transition">
+                {showAnswers ? '정답 숨기기' : '전체 정답 보기'}
+              </button>
+              <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold shadow transition">
+                <IconPrinter /> 퍼즐 인쇄하기
+              </button>
             </div>
           </header>
 
-          <main className="max-w-6xl mx-auto px-4 pb-12">
-            
-            {/* 탭 1: 단어 입력 및 설정 */}
-            <div className={`bg-white rounded-xl shadow-lg p-6 no-print ${activeTab === 'input' ? 'block' : 'hidden'}`}>
-              
-              {/* 그리드 사이즈 설정 UI 추가 */}
-              <div className="mb-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-                <h3 className="font-bold text-blue-800 mb-3 flex items-center gap-2"><IconSettings/> 퍼즐판(그리드) 설정</h3>
-                <div className="flex flex-wrap gap-6 items-center">
-                  <div className="flex items-center gap-2">
-                    <label className="text-gray-700 font-medium">최대 가로 칸수:</label>
-                    <input type="number" min="10" max="50" value={gridCols} onChange={(e) => setGridCols(e.target.value)} className="w-16 p-1 border rounded text-center" />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <label className="text-gray-700 font-medium">최대 세로 칸수:</label>
-                    <input type="number" min="10" max="50" value={gridRows} onChange={(e) => setGridRows(e.target.value)} className="w-16 p-1 border rounded text-center" />
-                  </div>
-                  <div className="flex items-center gap-2 ml-auto">
-                    <label className="flex items-center gap-2 cursor-pointer text-gray-800 font-medium">
-                      <input type="checkbox" checked={autoTrim} onChange={(e) => setAutoTrim(e.target.checked)} className="w-4 h-4 text-blue-600 rounded" />
-                      생성 후 불필요한 빈칸(여백) 자동 자르기
-                    </label>
-                  </div>
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* 왼쪽: 에디터 캔버스 (그리드) */}
+            <div className="flex-1 bg-white shadow-lg rounded-xl p-6 overflow-x-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-bold text-gray-700">퍼즐 보드 (클릭하여 시작 위치 선택)</h2>
+                <div className="flex items-center gap-4 text-sm">
+                  <label className="flex items-center gap-1">가로칸: <input type="number" min="5" max="30" value={boardCols} onChange={e=>setBoardCols(Number(e.target.value))} className="w-12 border p-1 rounded" /></label>
+                  <label className="flex items-center gap-1">세로칸: <input type="number" min="5" max="30" value={boardRows} onChange={e=>setBoardRows(Number(e.target.value))} className="w-12 border p-1 rounded" /></label>
+                  <button onClick={handleResetBoard} className="text-red-500 hover:text-red-700 font-bold ml-2">보드 초기화</button>
                 </div>
-                <p className="text-xs text-blue-600 mt-2">* '자동 자르기'를 체크해두면 설정한 칸 수보다 단어가 적어도 화면에 꽉 차게 예쁘게 잘려 나옵니다.</p>
               </div>
 
-              <div className="overflow-x-auto mb-4">
-                <table className="w-full text-left border-collapse min-w-[600px]">
-                  <thead>
-                    <tr className="bg-gray-50 border-y">
-                      <th className="p-3 font-semibold text-gray-700 w-1/4">단어 (Word)</th>
-                      <th className="p-3 font-semibold text-gray-700 w-2/3">힌트 (Clue)</th>
-                      <th className="p-3 font-semibold text-gray-700 text-center w-auto">관리</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {wordList.map((item, index) => (
-                      <tr key={index} className="border-b">
-                        <td className="p-2">
-                          <input type="text" className="w-full p-2 border rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" value={item.word} onChange={(e) => handleChange(index, 'word', e.target.value)} placeholder="단어" />
-                        </td>
-                        <td className="p-2">
-                          <input type="text" className="w-full p-2 border rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" value={item.clue} onChange={(e) => handleChange(index, 'clue', e.target.value)} placeholder="힌트" />
-                        </td>
-                        <td className="p-2 text-center">
-                          <button onClick={() => removeWord(index)} className="text-red-500 hover:text-red-700 p-2"><IconTrash /></button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="flex gap-3 justify-center mt-6">
-                <button onClick={addWord} className="flex items-center gap-2 bg-gray-100 border text-gray-700 px-5 py-2.5 rounded-lg hover:bg-gray-200 transition"><IconPlus /> 단어 추가</button>
-                <button onClick={generateCrossword} className="flex items-center gap-2 bg-blue-600 text-white px-8 py-2.5 rounded-lg hover:bg-blue-700 transition font-bold shadow-md"><IconPlay /> 퍼즐 생성하기</button>
-              </div>
-            </div>
-
-            {/* 탭 2: 미리보기 */}
-            <div className={`bg-white rounded-xl shadow-lg p-6 no-print ${activeTab === 'preview' ? 'block' : 'hidden'}`}>
-              <div className="flex justify-between items-center border-b pb-4 mb-6">
-                <h2 className="text-xl font-bold">2. 생성된 퍼즐 확인</h2>
-                <button onClick={() => setShowAnswers(!showAnswers)} className={`flex items-center gap-2 px-5 py-2 rounded-lg font-semibold transition ${showAnswers ? 'bg-indigo-600 text-white' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'}`}>
-                  {showAnswers ? <IconEyeOff /> : <IconEye />}
-                  {showAnswers ? '정답 숨기기' : '정답 보기'}
-                </button>
-              </div>
-              
-              {isGenerated && (
-                <div className="overflow-x-auto pb-4 flex justify-center">
-                  <div className="inline-grid gap-0 bg-black border-2 border-black" style={{ gridTemplateColumns: `repeat(${grid[0].length}, minmax(0, 1fr))` }}>
-                    {grid.map((row, rIdx) => row.map((cell, cIdx) => (
-                      <div key={`${rIdx}-${cIdx}`} className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 relative flex items-center justify-center border border-gray-300 ${cell === null ? 'bg-black' : 'bg-white'}`}>
-                        {cell !== null && (
+              <div className="flex justify-center select-none min-w-max pb-4">
+                <div className="inline-grid gap-0 bg-gray-200 border-2 border-gray-400" style={{ gridTemplateColumns: `repeat(${boardCols}, minmax(0, 1fr))` }}>
+                  {grid.map((row, rIdx) => row.map((cell, cIdx) => {
+                    const isSelected = selectedCell?.r === rIdx && selectedCell?.c === cIdx;
+                    return (
+                      <div 
+                        key={`${rIdx}-${cIdx}`} 
+                        onClick={() => handleCellClick(rIdx, cIdx)}
+                        className={`w-10 h-10 md:w-12 md:h-12 relative flex items-center justify-center border border-gray-300 cursor-pointer transition-colors
+                          ${isSelected ? 'bg-blue-300 ring-2 ring-blue-500 z-20' : cell ? 'bg-white hover:bg-blue-50' : 'bg-gray-100 hover:bg-gray-300'}
+                        `}
+                      >
+                        {cell && (
                           <>
-                            {cell.number && <span className="absolute top-0.5 left-1 text-[9px] sm:text-[10px] md:text-xs font-bold text-gray-600 z-10">{cell.number}</span>}
-                            <span className={`text-base sm:text-lg md:text-xl font-bold ${showAnswers ? 'text-blue-600' : 'text-transparent'}`}>{cell.letter}</span>
+                            {cell.number && <span className="absolute top-0.5 left-1 text-[10px] font-bold text-gray-500 z-10">{cell.number}</span>}
+                            <span className="text-lg font-bold text-gray-800">{cell.letter}</span>
                           </>
                         )}
+                        {!cell && isSelected && <span className="text-blue-600 font-bold text-xl">+</span>}
                       </div>
-                    )))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 탭 3: 인쇄 설정 */}
-            <div className={`no-print ${activeTab === 'print' ? 'block' : 'hidden'}`}>
-              <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-                <h2 className="text-xl font-bold mb-4 border-b pb-2">3. 인쇄 옵션 설정</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-                  <div>
-                    <label className="block text-gray-700 font-bold mb-2">용지 방향 (A4)</label>
-                    <div className="flex gap-4">
-                      <label className={`flex-1 flex justify-center items-center p-3 border rounded-lg cursor-pointer transition ${printOrientation === 'portrait' ? 'border-blue-500 bg-blue-50 text-blue-700 font-bold' : 'hover:bg-gray-50'}`}>
-                        <input type="radio" name="orientation" value="portrait" checked={printOrientation === 'portrait'} onChange={(e) => setPrintOrientation(e.target.value)} className="hidden" /> 세로 방향
-                      </label>
-                      <label className={`flex-1 flex justify-center items-center p-3 border rounded-lg cursor-pointer transition ${printOrientation === 'landscape' ? 'border-blue-500 bg-blue-50 text-blue-700 font-bold' : 'hover:bg-gray-50'}`}>
-                        <input type="radio" name="orientation" value="landscape" checked={printOrientation === 'landscape'} onChange={(e) => setPrintOrientation(e.target.value)} className="hidden" /> 가로 방향
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-bold mb-2">퍼즐 칸 크기 조절: {cellSize}px</label>
-                    <input type="range" min="20" max="60" step="1" value={cellSize} onChange={(e) => setCellSize(Number(e.target.value))} className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-3" />
-                    <div className="flex justify-between text-xs text-gray-500 mt-1"><span>작게</span><span>크게</span></div>
-                  </div>
-                </div>
-                <div className="text-center mt-6">
-                  <button onClick={handlePrint} className="inline-flex items-center gap-2 bg-green-600 text-white px-10 py-3 rounded-lg hover:bg-green-700 transition font-bold shadow-lg text-lg"><IconPrinter /> 이 설정으로 인쇄 및 PDF 저장</button>
-                  <p className="text-sm text-gray-500 mt-3">* 버튼을 누르면 위 옵션이 적용된 상태로 인쇄 대화창이 열립니다.</p>
+                    )
+                  }))}
                 </div>
               </div>
             </div>
 
-            {/* 실제 인쇄 영역 */}
-            <div id="print-container" className={`bg-white rounded-xl shadow-lg p-6 print:shadow-none print:p-0 ${isGenerated && activeTab === 'print' ? 'block' : 'hidden print:block'}`}>
-              <h1 className="text-3xl font-bold text-center mb-8 print-only hidden">십자말풀이 퍼즐</h1>
-              {isGenerated && (
-                <>
-                  <div className="flex justify-center mb-10 overflow-hidden">
-                    <div className="inline-grid gap-0 bg-black border-2 border-black" style={{ gridTemplateColumns: `repeat(${grid[0].length}, minmax(0, 1fr))` }}>
-                      {grid.map((row, rIdx) => row.map((cell, cIdx) => (
-                        <div key={`${rIdx}-${cIdx}`} className={`relative flex items-center justify-center border border-gray-400 crossword-cell ${cell === null ? 'bg-black border-black' : 'bg-white'}`} style={{ width: `${cellSize}px`, height: `${cellSize}px` }}>
-                          {cell !== null && (
-                            <>
-                              {cell.number && <span className="absolute top-0.5 left-1 font-bold text-gray-700 z-10" style={{ fontSize: `${Math.max(10, cellSize * 0.25)}px` }}>{cell.number}</span>}
-                              <input type="text" maxLength="1" className={`w-full h-full text-center font-bold bg-transparent outline-none relative z-0 print-break-inside-avoid ${showAnswers ? 'text-gray-900' : 'text-transparent print:text-transparent'}`} style={{ fontSize: `${cellSize * 0.5}px` }} value={showAnswers ? cell.letter : ''} readOnly />
-                            </>
-                          )}
-                        </div>
-                      )))}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print-break-inside-avoid px-4">
-                    <div>
-                      <h3 className="font-bold text-lg mb-3 border-b-2 border-gray-800 pb-2">가로 열쇠 (Across)</h3>
-                      <ul className="space-y-3">
-                        {clues.across.map((clue, idx) => <li key={idx} className="flex gap-2 text-gray-800 text-base"><span className="font-bold min-w-[24px]">{clue.number}.</span><span>{clue.clue}</span></li>)}
-                      </ul>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg mb-3 border-b-2 border-gray-800 pb-2">세로 열쇠 (Down)</h3>
-                      <ul className="space-y-3">
-                        {clues.down.map((clue, idx) => <li key={idx} className="flex gap-2 text-gray-800 text-base"><span className="font-bold min-w-[24px]">{clue.number}.</span><span>{clue.clue}</span></li>)}
-                      </ul>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
+            {/* 오른쪽: 단어 입력 및 관리 패널 */}
+            <div className="w-full lg:w-[400px] flex flex-col gap-6">
+              
+              {/* 입력 폼 */}
+              <div className={`bg-white shadow-lg rounded-xl p-6 border-t-4 ${selectedCell ? 'border-blue-500' : 'border-gray-200 opacity-70'}`}>
+                <h3 className="text-lg font-bold text-gray-800 mb-4">
+                  단어 추가 
+                  {selectedCell && <span className="text-blue-600 ml-2 text-sm">({selectedCell.r + 1}행, {selectedCell.c + 1}열 선택됨)</span>}
+                </h3>
+                
+                {!selectedCell && <p className="text-sm text-gray-500 mb-4 bg-gray-50 p-3 rounded">👈 왼쪽 그리드에서 단어를 시작할 빈 칸(또는 연결할 글자 칸)을 먼저 클릭해주세요.</p>}
 
-          </main>
+                <div className="space-y-4">
+                  <div className="flex gap-2 bg-gray-100 p-1 rounded-lg">
+                    <button onClick={() => setDirection('across')} disabled={!selectedCell} className={`flex-1 py-2 text-sm font-bold rounded-md transition ${direction === 'across' ? 'bg-white text-blue-600 shadow' : 'text-gray-500'}`}>가로 방향 ➔</button>
+                    <button onClick={() => setDirection('down')} disabled={!selectedCell} className={`flex-1 py-2 text-sm font-bold rounded-md transition ${direction === 'down' ? 'bg-white text-blue-600 shadow' : 'text-gray-500'}`}>세로 방향 ⬇</button>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">단어 (Word)</label>
+                    <input 
+                      type="text" 
+                      disabled={!selectedCell}
+                      value={inputWord} 
+                      onChange={(e) => setInputWord(e.target.value)} 
+                      placeholder={selectedCell ? "단어를 입력하세요" : "칸을 먼저 선택하세요"}
+                      className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100" 
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-1">힌트 설명 (Clue)</label>
+                    <textarea 
+                      disabled={!selectedCell}
+                      value={inputClue} 
+                      onChange={(e) => setInputClue(e.target.value)} 
+                      placeholder="단어에 대한 설명을 입력하세요"
+                      rows="3"
+                      className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none disabled:bg-gray-100" 
+                    />
+                  </div>
+
+                  <button 
+                    onClick={handleAddWord} 
+                    disabled={!selectedCell}
+                    className="w-full flex justify-center items-center gap-2 bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+                  >
+                    <IconPlus /> 그리드에 배치하기
+                  </button>
+                </div>
+              </div>
+
+              {/* 배치된 단어 목록 */}
+              <div className="bg-white shadow-lg rounded-xl p-6 flex-1 overflow-hidden flex flex-col">
+                <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2 flex justify-between">
+                  배치된 단어 목록 
+                  <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded text-sm">{placedWords.length}개</span>
+                </h3>
+                <div className="overflow-y-auto pr-2 space-y-3">
+                  {placedWords.length === 0 ? (
+                    <p className="text-sm text-gray-500 text-center py-4">아직 배치된 단어가 없습니다.</p>
+                  ) : (
+                    placedWords.map((item) => (
+                      <div key={item.id} className="bg-gray-50 border border-gray-100 p-3 rounded-lg flex justify-between items-start group hover:border-blue-300 transition">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded text-white ${item.isHorizontal ? 'bg-indigo-500' : 'bg-emerald-500'}`}>
+                              {item.isHorizontal ? '가로' : '세로'}
+                            </span>
+                            <span className="font-bold text-gray-800">{item.word}</span>
+                          </div>
+                          <p className="text-xs text-gray-600 line-clamp-2">{item.clue}</p>
+                        </div>
+                        <button onClick={() => handleDeleteWord(item.id)} className="text-gray-400 hover:text-red-500 p-1 bg-white rounded-md shadow-sm border border-transparent group-hover:border-red-100 transition">
+                          <IconTrash />
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       );
     }
