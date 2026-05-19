@@ -6,14 +6,11 @@
   <title>십자말풀이 퍼즐 메이커</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    /* 인쇄용 스타일: 인쇄 버튼 누를 시 퍼즐만 깔끔하게 출력되도록 설정 */
     @media print {
       body { background: white; margin: 0; padding: 0; }
       .no-print { display: none !important; }
@@ -30,7 +27,6 @@
   <script type="text/babel">
     const { useState, useRef } = React;
 
-    // 아이콘 SVG 컴포넌트 (설치 없이 바로 사용하기 위함)
     const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>;
     const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>;
     const IconPlay = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>;
@@ -39,14 +35,17 @@
     const IconEyeOff = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>;
 
     function App() {
+      // 겹치는 글자가 있는 예시 단어로 변경했습니다.
       const [wordList, setWordList] = useState([
-        { word: '의사', clue: '어떤 일을 하려고 하는 생각' },
-        { word: '각오', clue: '앞으로 생길 힘든 일에 대하여 마음의 준비를 단단히 하는 것' },
-        { word: '조언', clue: '도움이 되는 말' }
+        { word: '학교', clue: '학생들이 모여서 교육을 받는 곳' },
+        { word: '교실', clue: '선생님과 학생들이 모여 수업을 하는 방' },
+        { word: '실내화', clue: '건물 안에서 신는 신발' },
+        { word: '화분', clue: '꽃이나 나무를 심어 가꾸는 그릇' }
       ]);
       
       const [grid, setGrid] = useState([]);
       const [clues, setClues] = useState({ across: [], down: [] });
+      const [unplacedWords, setUnplacedWords] = useState([]); // 배치 실패한 단어 목록 상태 추가
       const [isGenerated, setIsGenerated] = useState(false);
       const [showAnswers, setShowAnswers] = useState(false);
       
@@ -68,7 +67,6 @@
       };
 
       const generateCrossword = () => {
-        // 단어 필터링 및 대문자(또는 한글) 처리, 길이순 정렬
         const words = wordList
           .filter(item => item.word.trim() !== '' && item.clue.trim() !== '')
           .map(item => ({ ...item, word: item.word.trim().toUpperCase() }))
@@ -79,11 +77,11 @@
           return;
         }
 
-        const GRID_SIZE = 30; // 넉넉한 초기 그리드 사이즈
+        const GRID_SIZE = 30; 
         let board = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
         let placedWords = [];
+        let failedWords = []; // 배치 실패 단어 수집 배열
 
-        // 단어 배치 가능 여부 체크 (충돌 방지)
         const canPlace = (word, row, col, isHorizontal) => {
           if (isHorizontal && col + word.length > GRID_SIZE) return false;
           if (!isHorizontal && row + word.length > GRID_SIZE) return false;
@@ -92,12 +90,10 @@
             let r = isHorizontal ? row : row + i;
             let c = isHorizontal ? col + i : col;
 
-            // 글자 충돌
             if (board[r][c] !== null && board[r][c].letter !== word[i]) {
               return false;
             }
 
-            // 인접 칸 간섭 확인
             if (board[r][c] === null) {
               if (isHorizontal) {
                 if (r > 0 && board[r - 1][c] !== null) return false;
@@ -109,7 +105,6 @@
             }
           }
           
-          // 단어 앞뒤 비어있는지 확인
           if (isHorizontal) {
             if (col > 0 && board[row][col - 1] !== null) return false;
             if (col + word.length < GRID_SIZE && board[row][col + word.length] !== null) return false;
@@ -117,7 +112,6 @@
             if (row > 0 && board[row - 1][col] !== null) return false;
             if (row + word.length < GRID_SIZE && board[row + word.length][col] !== null) return false;
           }
-
           return true;
         };
 
@@ -130,11 +124,9 @@
           placedWords.push({ ...wordObj, row, col, isHorizontal });
         };
 
-        // 1. 첫 단어는 중앙에 가로로 배치
         const firstWord = words[0];
         placeWord(firstWord, Math.floor(GRID_SIZE / 2), Math.floor((GRID_SIZE - firstWord.word.length) / 2), true);
 
-        // 2. 나머지 단어 교차 배치 (Greedy 방식)
         for (let i = 1; i < words.length; i++) {
           let currentWord = words[i];
           let placed = false;
@@ -160,9 +152,13 @@
               }
             }
           }
+          
+          // 배치에 실패한 경우 실패 목록에 추가
+          if (!placed) {
+            failedWords.push(currentWord.word);
+          }
         }
 
-        // 3. 번호 매기기 및 힌트 분리
         let acrossClues = [];
         let downClues = [];
         let currentNumber = 1;
@@ -190,7 +186,6 @@
           }
         }
 
-        // 4. 불필요한 여백 잘라내기
         let minR = GRID_SIZE, maxR = 0, minC = GRID_SIZE, maxC = 0;
         for (let r = 0; r < GRID_SIZE; r++) {
           for (let c = 0; c < GRID_SIZE; c++) {
@@ -212,6 +207,7 @@
 
         setGrid(trimmedBoard);
         setClues({ across: acrossClues, down: downClues });
+        setUnplacedWords(failedWords); // 상태 업데이트
         setIsGenerated(true);
         setShowAnswers(false);
       };
@@ -225,7 +221,6 @@
           <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg p-6">
             <h1 className="text-2xl font-bold text-center mb-8 text-gray-800 no-print">십자말풀이 퍼즐 메이커</h1>
 
-            {/* 입력 폼 영역 */}
             <div className="mb-10 no-print">
               <div className="overflow-x-auto mb-4">
                 <table className="w-full text-left border-collapse min-w-[600px]">
@@ -288,7 +283,6 @@
               </div>
             </div>
 
-            {/* 퍼즐 출력 영역 */}
             {isGenerated && grid.length > 0 && (
               <div className="mt-8 border-t pt-8">
                 <div className="flex flex-wrap justify-between items-center mb-6 no-print">
@@ -309,10 +303,18 @@
                     </button>
                   </div>
                 </div>
+                
+                {/* 배치 실패 단어 알림 영역 */}
+                {unplacedWords.length > 0 && (
+                  <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 no-print">
+                    <p className="font-bold">⚠️ 알림: 아래 단어들은 다른 단어와 겹치는 글자가 없어 퍼즐에 배치되지 못했습니다.</p>
+                    <p className="mt-1">{unplacedWords.join(', ')}</p>
+                    <p className="text-sm mt-2 text-gray-600">해결 방법: 기존 단어들과 공통된 글자(예: '학교'-'교실')를 가진 단어를 추가해 보세요.</p>
+                  </div>
+                )}
 
                 <h1 className="text-3xl font-bold text-center mb-8 hidden print-only">십자말풀이 퍼즐</h1>
 
-                {/* 그리드 컨테이너 (모바일 잘림 방지) */}
                 <div className="flex justify-center mb-10 overflow-x-auto pb-4" ref={gridContainerRef}>
                   <div 
                     className="inline-grid gap-0 bg-black border-2 border-black" 
@@ -352,7 +354,6 @@
                   </div>
                 </div>
 
-                {/* 힌트 목록 영역 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print-break-inside-avoid">
                   <div>
                     <h3 className="font-bold text-lg mb-3 border-b-2 border-gray-800 pb-2">가로 열쇠 (Across)</h3>
